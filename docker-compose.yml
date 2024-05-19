@@ -1,24 +1,14 @@
 version: '3.2'
 
 services:
-  db:
-    image: mysql:${MYSQL_VERSION}
-    container_name: db
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    ports:
-      - "9906:3306"
+ 
   web:
     build:
       context: './.docker/phpApache/'
       args:
         PHP_VERSION: ${PHP_VERSION}
     container_name: php_web
-    depends_on:
-      - db
+    
     volumes:
       - ./site/:/var/www/site/
       - ./.docker/phpApache/vhost/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
